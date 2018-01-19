@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+
+	<body>
+		<script type="text/javascript">
+			//十进制转n进制
+			function baseConverte(num, base) {
+				var retArr = [],
+					ret = '',
+					rem;
+				base = base || 16;
+				digits = '0123456789ABCDEF';
+				while(num > 0) {
+					rem = num % base;
+					retArr.push(rem);
+					num = Math.floor(num / base);
+				}
+				while(retArr.length > 0) {
+					ret += digits[retArr.pop()];
+				}
+				return ret;
+			}
+			//二进制加法 （字符串）
+			function addBinary(a, b) {
+				if(!a) return b;
+				if(!b) return a;
+				let idx1 = a.length - 1,
+					idx2 = b.length - 1,
+					carry = 0,
+					ret = '',
+					sum;
+				while(idx1 > -1 || idx2 > -1) {
+					sum = a[idx1--] - 0 || 0;
+					sum += b[idx2--] - 0 || 0;
+					sum += carry;
+					ret = sum % 2 + ret;
+					carry = sum >> 1;
+				}
+				return carry ? carry + ret : ret;
+			}
+		</script>
+	</body>
+
+</html>

@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>singleNumber2</title>
+	</head>
+	<body>
+		<script type="text/javascript">
+			function solution(){
+				var table = {};
+				for(var num of nums) {
+					if(!table[num]) table[num] = 1;
+					else table[num]++;
+				}
+				for(var k in table) {
+					if(table[k] == 1) return k / 1;
+				}
+			}
+		</script>
+	</body>
+</html>

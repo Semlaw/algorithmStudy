@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title>Linked List Cycle</title>
+	</head>
+
+	<body>
+		<script type="text/javascript">
+			/**
+			 * Definition for singly-linked list.
+			 * function ListNode(val) {
+			 *     this.val = val;
+			 *     this.next = null;
+			 * }
+			 */
+
+			/**
+			 * @param {ListNode} head
+			 * @return {boolean}
+			 */
+			function ListNode(val, next) {
+				this.val = val;
+				this.next = next || null;
+			}
+
+			//环可能是在链表的中间链接起来！！！
+			function solution(head) {
+				let next = head && head.next;
+				while(next) {
+					if(next === head) return true;
+					else if(next.next) next = next.next;
+					else return false;
+				}
+				return false;
+			};
+
+			function solution3(head) {
+				let p = head,
+					q = head;
+				while(p && p.next) {
+					q = q.next;
+					p = p.next.next;
+					if(p === q) return true;
+				}
+				return false
+			}
+
+			function solution4(head) {
+				if(head === null || head.next === null) return false
+				let slow = head,
+					fast = head.next
+
+				while(slow !== fast) {
+					if(fast === null || fast.next === null) {
+						return false
+					}
+					slow = slow.next
+					fast = fast.next.next
+				}
+
+				return true
+			};
+		</script>
+	</body>
+
+</html>

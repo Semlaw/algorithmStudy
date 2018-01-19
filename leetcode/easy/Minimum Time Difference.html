@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title>Minimum Time Difference</title>
+	</head>
+
+	<body>
+		<script type="text/javascript">
+			function findMinDifference(times) {
+				var max = 0,
+					min = 1440,second = 1440,minutes;
+
+				function parseToMinute(t) {
+					var arr = t.split(':');
+					return +arr[0] * 60 + (+arr[1]);
+				}
+				for(var idx = 0; idx < times.length; idx++) {
+					var minutes = parseToMinute(times[idx]);
+					if(minutes<min){
+						min = minutes;
+					}else if(minutes<second){
+						second = minutes;
+					}
+				}
+				return min - second;
+			}
+		</script>
+	</body>
+
+</html>

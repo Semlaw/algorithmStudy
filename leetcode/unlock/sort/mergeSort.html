@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+
+	<body>
+		<script type="text/javascript">
+			function merge(arr, left, mid, right, temp) {
+				var i = left; //左指针
+				var j = mid + 1 //右指针
+				var idx = 0;
+				while(i <= mid && j <= right) {
+					if(arr[i] < arr[j]) {
+						temp[idx++] = arr[i++];
+					} else {
+						temp[idx++] = arr[j++];
+					}
+				}
+				while(i <= mid) {
+					temp[idx++] = arr[i++];
+				}
+				while(j <= right) {
+					temp[idx++] = arr[j++];
+				}
+				var idx = 0
+				while(left <= right) {
+					arr[left++] = temp[idx++];
+				}
+			}
+
+			function sort(arr, left, right, temp) {
+				if(left < right) {
+					var mid = Math.floor((left + right) / 2);
+					sort(arr, left, mid, temp);
+					sort(arr, mid + 1, right, temp);
+					merge(arr, left, mid, right, temp);
+				}
+			}
+
+			function mergeSort(arr) {
+				sort(arr, 0, arr.length - 1, []);
+				return arr;
+			}
+
+			var list = [34, 2, 3, 54, 6, 4, 2, 1, 9, 78, 5, 34, 2, 1];
+		</script>
+	</body>
+
+</html>

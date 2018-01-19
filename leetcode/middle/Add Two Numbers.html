@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title>Add Two Numbers</title>
+	</head>
+
+	<body>
+		<pre>
+			You are given two non-empty linked lists representing two non-negative integers. The digits are stored in reverse order and each of their nodes contain a single digit. Add the two numbers and return it as a linked list.
+
+			You may assume the two numbers do not contain any leading zero, except the number 0 itself.
+			
+			Example
+			
+			Input: (2 -> 4 -> 3) + (5 -> 6 -> 4)
+			Output: 7 -> 0 -> 8
+			Explanation: 342 + 465 = 807.
+		</pre>
+		<script type="text/javascript">
+			/**
+			 * Definition for singly-linked list.
+			 * function ListNode(val) {
+			 *     this.val = val;
+			 *     this.next = null;
+			 * }
+			 */
+			/**
+			 * @param {ListNode} l1
+			 * @param {ListNode} l2
+			 * @return {ListNode}
+			 */
+			function ListNode(val) {
+				this.val = val;
+				this.next = null;
+			}
+
+			function generateLink(arr) {
+				let ret, nNode, cNode;
+				for(let i = 0; i < arr.length; i++) {
+					nNode = new ListNode(arr[i]);
+					if(i == 0) ret = cNode = nNode;
+					else cNode.next = nNode;
+					cNode = nNode;
+				}
+				return ret;
+			}
+
+			function addTwoNumbers(l1, l2) {
+				var carry = 0,
+					retLink, cNode, nNode, sum;
+				while(l1 || l2 || carry) {
+					sum = (l1 && l1.val) || 0;
+					sum += (l2 && l2.val) || 0;
+					sum += carry;
+					nNode = new ListNode(sum % 10);
+					carry = sum > 9 ? 1 : 0;
+					if(retLink) {
+						cNode.next = nNode;
+					} else {
+						retLink = cNode = nNode;
+					}
+					cNode = nNode;
+					l1 = l1 && l1.next;
+					l2 = l2 && l2.next;
+				}
+				return retLink;
+			};
+			
+			function addTwoNumbers2(l1, l2) {
+				let carry = 0,
+					retLink, cNode, nNode, sum,retArr = [];
+				while(l1 || l2) {
+					sum = (l1 && l1.val) || 0;
+					sum += (l2 && l2.val) || 0;
+					sum += carry;
+					retArr.unshift(sum%10)
+					carry = sum > 9 ? 1 : 0;
+					l1 = l1 && l1.next;
+					l2 = l2 && l2.next;
+				}
+				if(carry) retArr.unshift(1);
+				let temp;
+				while((temp =retArr.pop())!=undefined ){
+					nNode = new ListNode(temp);
+					if(retLink) {
+						cNode.next = nNode;
+					} else {
+						retLink = cNode = nNode;
+					}
+					cNode = nNode;
+				}
+				
+				return retLink;
+			};
+
+
+			function testCase(a, b) {
+				var arrA = (a+'').split('').map((item)=>+item).reverse(),
+				arrB = (b+'').split('').map((item)=>+item).reverse();
+				var link1 = generateLink(arrA),
+					link2 = generateLink(arrB);
+				return addTwoNumbers(link1, link2)
+			}
+			
+			console.dir(testCase(982, 987))
+		</script>
+	</body>
+
+</html>

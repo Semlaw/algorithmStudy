@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title>Minimum Index Sum of Two Lists</title>
+	</head>
+
+	<body>
+		<pre>
+			Suppose Andy and Doris want to choose a restaurant for dinner, and they both have a list of favorite restaurants represented by strings.
+
+			You need to help them find out their common interest with the least list index sum. If there is a choice tie between answers, output all of them with no order requirement. You could assume there always exists an answer.
+			
+			Example 1:
+			Input:
+			["Shogun", "Tapioca Express", "Burger King", "KFC"]
+			["Piatti", "The Grill at Torrey Pines", "Hungry Hunter Steakhouse", "Shogun"]
+			Output: ["Shogun"]
+			Explanation: The only restaurant they both like is "Shogun".
+			Example 2:
+			Input:
+			["Shogun", "Tapioca Express", "Burger King", "KFC"]
+			["KFC", "Shogun", "Burger King"]
+			Output: ["Shogun"]
+			Explanation: The restaurant they both like and have the least index sum is "Shogun" with index sum 1 (0+1).
+			Note:
+			The length of both lists will be in the range of [1, 1000].
+			The length of strings in both lists will be in the range of [1, 30].
+			The index is starting from 0 to the list length minus 1.
+			No duplicates in both lists.
+		</pre>
+		<script type="text/javascript">
+			function solution(list1, list2) {
+				var longer, shorter, obj, len1 = list1.length,
+					len2 = list2.length;
+				if(len1 === 0 || len2 === 0) return [];
+				if(len1 > len2) longer = list1, shorter = list2;
+				else longer = list2, shorter = list1;
+				obj = {};
+				var length = longer.length,
+					idx = 0;
+				while(idx < length) {
+					obj[longer[idx]] = idx++;
+				}
+				var minSum = Number.MAX_VALUE,
+					retMap = {},
+					val, sum;
+				length = shorter.length, idx = 0;
+				while(idx < length) {
+					val = shorter[idx];
+					sum = idx + obj[val];
+					if(obj[val] !== undefined) {
+						if(sum < minSum) {
+							retMap[sum] = [val];
+							minSum = sum
+						} else if(sum === minSum) {
+							retMap[sum].push(val);
+						}
+					}
+					idx++;
+				}
+				return retMap[minSum] || [];
+			};
+
+			function solution2(list1, list2) {
+				var map = {};
+				var i, j, sum, minSum = Number.MAX_VALUE,
+					result = [];
+				var base = list1.length > list2.length ? list2 : list1;
+				var left = list1.length > list2.length ? list1 : list2;
+				for(i = 0; i < base.length; i++) {
+					map[base[i]] = i;
+				}
+				for(j = 0; j < left.length; j++) {
+					if(map.hasOwnProperty(left[j])) {
+						sum = map[left[j]] + j;
+						if(sum <= minSum) {
+							if(sum !== minSum) {
+								result = [];
+							}
+							result.push(left[j]);
+							minSum = sum;
+						}
+					}
+				}
+				return result;
+			};
+			var list1 = ["Shogun", "Tapioca Express", "Burger King", "KFC"];
+			var list2 = ["KFC", "Shogun", "Burger King"];
+		</script>
+	</body>
+
+</html>

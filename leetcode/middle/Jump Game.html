@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title>Jump Game</title>
+	</head>
+
+	<body>
+		<pre>
+			Given an array of non-negative integers, you are initially positioned at the first index of the array.
+
+			Each element in the array represents your maximum jump length at that position.
+			
+			Determine if you are able to reach the last index.
+			
+			For example:
+			A = [2,3,1,1,4], return true.
+			
+			A = [3,2,1,0,4], return false.
+		</pre>
+		<script type="text/javascript">
+			/**
+			 * @param {number[]} nums
+			 * @return {boolean}
+			 */
+			var canJump = function(nums) {
+				var current = 0,
+					max = nums.length - 1,
+					step = nums[0];
+				while(true) {
+					if(current >= max) return true;
+					else if(step === 0) return false;
+					else 
+						current += step;
+						step = nums[current];
+				}
+			};
+			function solution(nums){
+				if(nums.length===0) return false;
+				var maxCover = 0,step = 1;
+			}
+		</script>
+	</body>
+
+</html>

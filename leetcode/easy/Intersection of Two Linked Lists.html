@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title>两个链表的交集</title>
+	</head>
+
+	<body>
+		<h4>获取链表交集的交叉点</h4>
+		<script type="text/javascript">
+			function solution(headA, headB) {
+				if(headA === null || headB === null) return null;
+				if(headA === headB) return headA;
+				var lenA = getLength(headA),
+					lenB = getLength(headB),
+					diff;
+				diff = Math.abs(lenA - lenB);
+				if(lenB > lenA) {
+					while(diff > 0) {
+						headB = headB.next;
+						diff--;
+					}
+				} else {
+					while(diff > 0) {
+						headA = headA.next;
+						diff--;
+					}
+				}
+				while(true) {
+					if(headA === headB) return headA;
+					headA = headA.next;
+					headB = headB.next;
+					if(headA === null || headB === null) return null;
+				}
+			}
+
+			function getLength(head) {
+				var len = 0;
+				while(head) {
+					len++;
+					head = head.next;
+				}
+				return len;
+			}
+		</script>
+	</body>
+
+</html>

@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title> Two Sum II - Input array is sorted</title>
+	</head>
+
+	<body>
+		<pre>
+			Given an array of integers that is already sorted in ascending order, find two numbers such that they add up to a specific target number.
+
+			The function twoSum should return indices of the two numbers such that they add up to the target, where index1 must be less than index2. Please note that your returned answers (both index1 and index2) are not zero-based.
+			
+			You may assume that each input would have exactly one solution and you may not use the same element twice.
+			
+			Input: numbers={2, 7, 11, 15}, target=9
+			Output: index1=1, index2=2
+		</pre>
+		<script type="text/javascript">
+			/**
+			 * @param {number[]} numbers
+			 * @param {number} target
+			 * @return {number[]}
+			 */
+			function solution(numbers, target) {
+				var borderIdx, idx = 0,
+					length = numbers.length;
+				while(idx < length) {
+					if(numbers[idx] > target) {
+						borderIdx = idx;
+						break;
+					}
+					idx++;
+				}
+				borderIdx = borderIdx || length;
+				var i, j, borderIdx2 = borderIdx,
+					minSum = Number.MAX_VALUE,
+					arr = [],
+					sum;
+				for(i = 0; i < borderIdx; i++) {
+					for(j = i + 1; j < borderIdx2; j++) {
+						sum = i + j;
+						if(numbers[i] + numbers[j] === target && sum < minSum) {
+							minSum = sum;
+							arr[0] = i, arr[1] = j;
+						}
+					}
+				}
+				return [arr[0] + 1, arr[1] + 1];
+			};
+
+			function solution2(numbers, target) {
+				var obj = {},
+					i;
+				for(i = 0; i < numbers.length; i++) {
+					var numA = target - numbers[i];
+					if(typeof obj[numA] == 'number') {
+						return [obj[numA] + 1, i + 1]
+					} else {
+						obj[numbers[i]] = i;
+					}
+				}
+			}
+			solution([2, 7, 11, 15], 9)
+		</script>
+	</body>
+
+</html>

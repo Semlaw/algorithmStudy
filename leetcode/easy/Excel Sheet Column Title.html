@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title>Excel Sheet Column Title</title>
+	</head>
+
+	<body>
+		<pre>
+			Given a positive integer, return its corresponding column title as appear in an Excel sheet.
+
+			For example:
+			
+			    1 -> A
+			    2 -> B
+			    3 -> C
+			    ...
+			    26 -> Z
+			    27 -> AA
+			    28 -> AB 
+		</pre>
+		<script type="text/javascript">
+			/**
+			 * @param {number} n
+			 * @return {string}
+			 */
+			var digitsMap = (function(){
+				let A = 'A',
+					Z = 'Z',
+					start = A.charCodeAt(0),
+					end = Z.charCodeAt(0),
+					digitsMap = {},
+					idx = 0;
+				while(start <= end) {
+					digitsMap[idx++] = String.fromCharCode(start++);
+				}
+				return digitsMap;
+			})();
+			var convertToTitle = function(n) {
+				var ret = '';
+				while(n){
+					ret = digitsMap[(n-1)%26] + ret;
+					n = Math.floor((n-1) / 26);
+				}
+				return ret;
+			};
+
+		</script>
+	</body>
+
+</html>

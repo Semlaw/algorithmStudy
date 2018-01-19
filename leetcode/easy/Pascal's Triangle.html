@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>Pascal's Triangle</title>
+	</head>
+	<body>
+		<script type="text/javascript">
+			function solution(numRows){
+				var tri = [[1],[1,1]];
+				//n从0开始
+				function generateRow(n){
+					var oneRow = [];
+					var idx = -1;
+					var preRow = tri[n-1];
+					while(idx++<n){
+						if(idx==0) oneRow[idx]=1;
+						else if(idx==n) oneRow[idx]=1;
+						else oneRow[idx]= preRow[idx-1]+preRow[idx];
+					}
+					tri[n] = oneRow;
+				}
+				if(numRows==0) return [];
+				if(numRows==1) return tri.slice(0,1);
+				if(numRows==2) return tri.slice(0,2);
+				var rowIdx = 2;
+				while(rowIdx<numRows){
+					generateRow(rowIdx);
+					rowIdx++;
+				}
+				return tri;
+			}
+			function print(numRows){
+				var original = solution(numRows);
+				var idx = 0;
+				while(idx<numRows){
+					var txt = (' ').repeat(numRows-1-idx)+ original[idx].join(' ');
+					console.log(txt);
+					idx++;
+				}
+			}
+		</script>
+	</body>
+</html>

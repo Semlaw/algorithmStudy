@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+
+	<body>
+		<script type="text/javascript">
+			var arr = new Array(100000);
+			arr.fill(0);
+			arr.forEach((item, idx, self) => {
+				self[idx] = idx;
+			})
+
+			function search(nums, target) {
+				for(var idx = 0; idx < nums.length; idx++) {
+					if(nums[idx] == target) return idx;
+				}
+
+			}
+
+			function search2(nums, target) {
+				var maxIdx = nums.length - 1;
+				var last = nums[maxIdx];
+				nums[maxIdx] = target;
+				for(var idx = 0;; idx++) {
+					if(nums[idx] == target) {
+						break;
+					}
+				}
+				nums[maxIdx] = last;
+				if(idx < maxIdx || last == target) {
+					return idx;
+				} else {
+					return -1
+				}
+			}
+
+			function calc1() {
+				console.time('1');
+				var ret = search(arr, -1);
+				console.log(ret)
+				console.timeEnd('1')
+			}
+
+			function calc2() {
+				console.time('2');
+				var ret = search2(arr, -1);
+				console.log(ret)
+				console.timeEnd('2')
+			}
+			
+			function binarySearh(nums,target){
+				var p = 1,r = nums.length;
+				
+				while(p<=r){
+					var middle = Math.floor((p+r)/2);
+					if(nums[middle]==target) return middle;
+					if(nums[middle]>target){
+						r = middle-1;
+					}else{
+						p = middle+1;
+					}
+				}
+				return -1;
+			}
+			function recursiveBianrySearch(nums,target){
+				function search(arr,p,r,x){
+					if(p>r) return -1;
+					var middle = Math.floor((p+r)/2);
+					if(arr[middle]==x) return middle;
+					if(arr[middle]>x){
+						return search(arr,p,middle-1,x);
+					}else{
+						return search(arr,middle+1,r,x);
+					}
+				}
+				return search(nums,1,nums.length,target);
+			}
+		</script>
+	</body>
+
+</html>

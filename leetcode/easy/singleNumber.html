@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+
+	<body>
+		<script type="text/javascript">
+			function solution(nums) {
+				var num;
+				for(var i = 0; i < nums.length; i++) {
+					num = nums[i];
+					var flag = true;
+					for(var j = 0; j < nums.length; j++) {
+						if(num == nums[j] && i != j) flag = false;
+					}
+					if(flag) return num;
+				}
+			}
+
+			function solution2(nums) {
+				var num;
+				for(var i = 0; i < nums.length; i++) {
+					num = nums[i];
+					if(nums.lastIndexOf(num) == i && nums.indexOf(num) == i) return num;
+				}
+			}
+
+			function solution3(nums) {
+				var table = {};
+				for(var num of nums) {
+					if(!table[num]) table[num] = 1;
+					else table[num]++;
+				}
+				for(var k in table) {
+					if(table[k] == 1) return k / 1;
+				}
+			}
+			var singleNumber = function(nums) {
+				var loops = nums.length,
+					result = nums[0]
+				for(var i = 1; i < loops; i++) {
+					result ^= nums[i]
+				}
+				return result
+			};
+		</script>
+	</body>
+
+</html>

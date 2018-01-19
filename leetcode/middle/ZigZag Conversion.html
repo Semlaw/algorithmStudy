@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title>ZigZag Conversion</title>
+	</head>
+
+	<body>
+		<pre>
+			The string "PAYPALISHIRING" is written in a zigzag pattern on a given number of rows like this: (you may want to display this pattern in a fixed font for better legibility)
+
+				P   A   H   N
+				A P L S I I G
+				Y   I   R
+				And then read line by line: "PAHNAPLSIIGYIR"
+				Write the code that will take a string and make this conversion given a number of rows:
+				
+				string convert(string text, int nRows);
+				convert("PAYPALISHIRING", 3) should return "PAHNAPLSIIGYIR".
+		</pre>
+		<script type="text/javascript">
+			/**
+			 * @param {string} s
+			 * @param {number} numRows
+			 * @return {string}
+			 */
+			var convert = function(s, numRows) {
+				if(numRows===1) return s;
+				let column = [],height = numRows;
+				while(height-->0){
+					column.push([]);
+				}
+				let idx = 0,length = s.length,c = 0,add = true;
+				while(idx<length){
+					column[c].push(s[idx]);
+					if(c>=(numRows-1)){
+						add = false;
+						c--;
+					}else if(c<=0){
+						add = true;
+						c++;
+					}else{
+						if(add) c++;
+						else c--;
+					}
+					idx++;
+				}
+				let temp,ret = '';
+				while(temp = column.shift()){
+					ret += temp.join('');
+				}
+				return ret;
+			};
+		</script>
+	</body>
+
+</html>
